@@ -8,10 +8,10 @@ import { Component,input,output } from '@angular/core';
 export class CountrySearchInput {
 
   termino=output<string>();
-  placeholder=input.required<string>();
+  placeholder=input<string>();
 
   onSearch(value:string){
-    console.log(value);
+    this.emitTermino(value);
   }
 
   emitTermino(termino:string){

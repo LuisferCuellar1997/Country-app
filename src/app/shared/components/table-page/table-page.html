@@ -13,29 +13,23 @@
       </tr>
     </thead>
     <tbody>
+      @if(countries().length>0){
+        @for(country of countries();track country.cca2; let i = $index){
+          <tr [class.bg-base-200]="i % 2 === 0" >
+            <th>{{i+1}}</th>
+            <td><i><img class="w-2.5" src="{{country.icono}}" alt="Flag of {{country.name}}" /></i></td>
+            <td><img class="w-[30px]" src="{{country.bandera}}" alt=""></td>
+            <td>{{country.name}}</td>
+            <td>{{country.capital}}</td>
+            <td><span class="badge badge-lg">{{country.population | number}}</span></td>
+            <td>
+              <a class="btn btn-dash">Más información</a>
+          </tr>
+        }
+      }@else{
+        <span class="text-center">{{isError()?.message}}</span>
+      }
       <!-- row 1 -->
-      <tr class="bg-base-200">
-        <th>1</th>
-        <td>Cy Ganderton</td>
-        <td>Quality Control Specialist</td>
-        <td>Blue</td>
-        <td>Blue</td>
-        <td>Blue</td>
-      </tr>
-      <!-- row 2 -->
-      <tr>
-        <th>2</th>
-        <td>Hart Hagerty</td>
-        <td>Desktop Support Technician</td>
-        <td>Purple</td>
-      </tr>
-      <!-- row 3 -->
-      <tr>
-        <th>3</th>
-        <td>Brice Swyre</td>
-        <td>Tax Accountant</td>
-        <td>Red</td>
-      </tr>
     </tbody>
   </table>
 </div>
