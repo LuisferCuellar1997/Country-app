@@ -5,4 +5,10 @@ export interface Country{
   name:string; //NOMBRE DEL PAIS
   capital:string; //CAPITAL
   population:number; //POBLACION
+  lenguages?:string[];
+  borders?:Country[];
+  currency?:string;
+  region?:string;
+  location?:string;
+  escudo?:string;
 }

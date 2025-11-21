@@ -13,23 +13,72 @@
       </tr>
     </thead>
     <tbody>
-      @if(countries().length>0){
-        @for(country of countries();track country.cca2; let i = $index){
-          <tr [class.bg-base-200]="i % 2 === 0" >
-            <th>{{i+1}}</th>
-            <td><i><img class="w-2.5" src="{{country.icono}}" alt="Flag of {{country.name}}" /></i></td>
-            <td><img class="w-[30px]" src="{{country.bandera}}" alt=""></td>
-            <td>{{country.name}}</td>
-            <td>{{country.capital}}</td>
-            <td><span class="badge badge-lg">{{country.population | number}}</span></td>
-            <td>
-              <a class="btn btn-dash">Más información</a>
-          </tr>
-        }
-      }@else{
-        <span class="text-center">{{isError()?.message}}</span>
-      }
+      @if(countries().length>0){ @for(country of countries();track country.cca2; let i = $index){
+      <tr [class.bg-base-200]="i % 2 === 0">
+        <th>{{ i + 1 }}</th>
+        <td>
+          <i><img class="w-2.5" src="{{ country.icono }}" alt="Flag of {{ country.name }}" /></i>
+        </td>
+        <td><img class="w-[30px]" src="{{ country.bandera }}" alt="" /></td>
+        <td>{{ country.name }}</td>
+        <td>{{ country.capital }}</td>
+        <td>
+          <span class="badge badge-lg">{{ country.population | number }}</span>
+        </td>
+        <td>
+          <a class="btn btn-dash" [routerLink]="['/country/by', country.cca2]">Más información</a>
+        </td>
+      </tr>
+
+      } }
       <!-- row 1 -->
+      @if(isError() && !isLoading()){
+      <tr>
+        <td colspan="8" class="text-center">
+          {{ isError() }}
+        </td>
+      </tr>
+      }
+
+      <!--  -->
+      @if(isEmpty() && !isLoading()){
+      <tr>
+        <td colspan="8" class="text-center">No se encontraron resultados</td>
+      </tr>
+      }
+
+      <!--  -->
+      @if(isLoading() && !isEmpty()){
+      <tr>
+        <td colspan="7" class="text-center">
+          <div class="flex justify-center items-center">
+            <svg
+              class="w-[30px]"
+              fill="hsl(228, 97%, 42%)"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z"
+                opacity=".25"
+              />
+              <path
+                d="M12,4a8,8,0,0,1,7.89,6.7A1.53,1.53,0,0,0,21.38,12h0a1.5,1.5,0,0,0,1.48-1.75,11,11,0,0,0-21.72,0A1.5,1.5,0,0,0,2.62,12h0a1.53,1.53,0,0,0,1.49-1.3A8,8,0,0,1,12,4Z"
+              >
+                <animateTransform
+                  attributeName="transform"
+                  type="rotate"
+                  dur="0.75s"
+                  values="0 12 12;360 12 12"
+                  repeatCount="indefinite"
+                />
+              </path>
+            </svg>
+          </div>
+        </td>
+      </tr>
+
+      }
     </tbody>
   </table>
 </div>

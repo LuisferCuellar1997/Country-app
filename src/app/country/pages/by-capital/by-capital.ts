@@ -2,10 +2,8 @@ import { Component, inject, resource, signal } from '@angular/core';
 import { TablePage } from "../../../shared/components/table-page/table-page";
 import { CountrySearchInput } from "../../components/top-menu/country-search-input/country-search-input";
 import { CountryService } from '../../services/country.service';
-import { RESTCountry } from '../../interfaces/rest-countries.interface';
-import { Country } from '../../interfaces/country.interface';
-import { CountryMapper } from '../../mappers/country.mapper';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, of } from 'rxjs';
+import {rxResource} from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-by-capital',
@@ -19,7 +17,16 @@ export class ByCapitalComponent {
   placeholder:string=" por CAPITAL";
 
   query=signal('');
-  countryResources=resource({
+
+  countryResources=rxResource({
+    params:()=>({query:this.query()}),
+    stream:({params})=>{
+       if(!params.query) return of([]);
+       return this.countryService.searchByCapital(params.query)
+    }
+  });
+
+  /* countryResources=resource({
     params:()=>({query:this.query()}),
     loader:async({params})=>{
       if(!params.query) return[];
@@ -27,8 +34,8 @@ export class ByCapitalComponent {
         this.countryService.searchByCapital(params.query)
       )
     }
-  })
-
+  }); */
+/*
   isLoading=signal(false);
   isError=signal<string|null>(null);
   countries=signal<Country[]>([]);
@@ -37,6 +44,7 @@ export class ByCapitalComponent {
 
   onSearch(query: string) {
 
+    console.log("Hola mundo")
     if(this.isLoading()) return;
     this.isLoading.set(true);
     this.isError.set(null);
@@ -47,14 +55,15 @@ export class ByCapitalComponent {
           this.countries.set(countries);
         },
         error:(err)=> {
+
           this.isLoading.set(false);
           this.countries.set([]);
-          this.isError.set(err)
+          this.isError.set(err);
         },
       }
     );
   }
-
+ */
 
 
 }

@@ -1,4 +1,9 @@
-<app-country-search-input [placeholder]="placeholder"/>
+<app-country-search-input [placeholder]="placeholder" (termino)="query.set($event)" />
 <section class="mt-5">
-  <app-table-page [countries]="[]" />
+  <app-table-page
+    [countries]="this.countryResources.value() ?? []"
+    [isError]="countryResources.error()?.message"
+    [isEmpty]="countryResources.value()?.length==0"
+    [isLoading]="countryResources.isLoading()"
+  />
 </section>
