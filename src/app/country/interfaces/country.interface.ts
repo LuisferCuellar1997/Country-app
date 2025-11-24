@@ -7,8 +7,10 @@ export interface Country{
   population:number; //POBLACION
   lenguages?:string[];
   borders?:Country[];
-  currency?:string;
+  bordersString?:string[];
+  currency?:string[];
   region?:string;
   location?:string;
+  latLong?:number[];
   escudo?:string;
 }
